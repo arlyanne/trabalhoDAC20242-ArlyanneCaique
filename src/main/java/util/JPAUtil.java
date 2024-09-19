@@ -6,9 +6,9 @@ import javax.persistence.Persistence;
 
 //O entityManagerFactory serve para criar entityManager -  e para criar entityManagerFactory preciso de um Persistence
 public class JPAUtil {
-private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("dac20242");
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("dac20242");
 	
-//Metodo para criar entityManager
+	//Metodo para criar entityManager
 	public static EntityManager criarEntityManager() {
 		return emf.createEntityManager();
 	}

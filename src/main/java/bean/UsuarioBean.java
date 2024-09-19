@@ -3,6 +3,7 @@ package bean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.primefaces.PrimeFaces;
 
 import dao.UsuarioDao;
 
@@ -27,6 +28,41 @@ public class UsuarioBean {
 		}
 		
 		return null;
+	}
+
+	public String excluir() {
+		try {
+			UsuarioDao.delete(usuario);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuario " + usuario.getId() + " removido com sucesso!"));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ops! Não foi possível realizar essa operação."));
+		}
+		
+		return null;
+	}
+	
+	public String editar() {
+		try {
+			Usuario usuarioExistente = UsuarioDao.find(usuario.getId());
+			usuarioExistente.setNome(usuario.getNome());
+			usuarioExistente.setSenha(usuario.getSenha());
+			usuarioExistente.setSexo(usuario.getSexo());
+			usuarioExistente.setDataNascimento(usuario.getDataNascimento());
+			
+			UsuarioDao.update(usuario);
+			PrimeFaces.current().ajax().update("formulario:tabela");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuario " + usuario.getId() + " editado com sucesso!"));
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Ops! Não foi possível realizar essa operação."));
+		}
+		
+		return null;
+	}
+	
+	public void contar() {
+		int contagem = UsuarioDao.count();
+		FacesMessage message = new FacesMessage("Contagem de registros: " + contagem);
+	    FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 	
 	public Usuario getUsuario() {

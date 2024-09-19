@@ -18,15 +18,17 @@ public class Usuario {
 	private String sexo;
 	private String senha;
 	
+	@Temporal(TemporalType.DATE) // Para informar que sera mapeada para bd como um tipo de data
+	@Column(name = "data_nascimento") // Usada para realizar mapeamento do campo com a coluna do bd
+	private Date dataNascimento;
+	
 	 public String getSenha() {
 		return senha;
 	}
+	 
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	@Temporal(TemporalType.DATE) // Para informar que sera mapeada para bd como um tipo de data
-	 @Column(name = "data_nascimento") // Usada para realizar mapeamento do campo com a coluna do bd
-	private Date dataNascimento;
 	 
 	 //Metodos get e sets para obter um dado ou setar um dado
 	public Integer getId() {
