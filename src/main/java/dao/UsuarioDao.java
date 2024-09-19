@@ -48,7 +48,7 @@ public class UsuarioDao {
 	}
 	
 	//Metodo Listar Usuario
-	public static List<Usuario> listAll(){
+	public static List<Usuario> listAll() {
 		EntityManager em = JPAUtil.criarEntityManager();
 		Query q = em.createQuery("select a from Usuario a");
 		List<Usuario> lista = q.getResultList();
@@ -57,10 +57,10 @@ public class UsuarioDao {
 	}
 	
 	//Metodo para Contar
-	public static Integer count() {
+	public static int count() {
 		EntityManager em = JPAUtil.criarEntityManager();
-		Query q = em.createQuery("select count(id) from usuario");
-		int count = ((BigInteger) q.getSingleResult()).intValue();
-		return count;
+		Query q = em.createQuery("select count(a) from Usuario a", Long.class);
+		Long count = (Long) q.getSingleResult();
+		return count.intValue();
 	}
 }
